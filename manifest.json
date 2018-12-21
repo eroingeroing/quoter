@@ -11,11 +11,18 @@
 	"icons": {
 		"128": "images/icon.png"
 	},
+	"web_accessible_resources": [
+		"html/*.html",
+		"css/panels.css",
+		"images/*.png"
+	],
 	"content_scripts": [
 		{
 			"matches": [
-				"http://www.google.co.jp/*",
-				"https://www.google.co.jp/*"
+				"http://www.google.co.jp/",
+				"http://www.google.co.jp/search*",
+				"https://www.google.co.jp/",
+				"https://www.google.co.jp/search*"
 			],
 			"js": [
 				"js/jquery-3.3.1.min.js",
@@ -27,9 +34,7 @@
 		}
 	],
 	"background": {
-		"scripts": [
-			"js/background.js"
-		]
+
 	},
 	"permissions": [
 		"tabs",
@@ -37,8 +42,5 @@
 		"contextMenus",
 		"http://*/*",
 		"https://*/*"
-	],
-	"web_accessible_resources": [
-		"images/*.png"
 	]
 }

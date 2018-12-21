@@ -1,0 +1,28 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.qcss-container {
+  height: 100%;
+}
+
+.qcss-container > div {
+  display: flex;
+  height: 50%;
+}
+
+.qcss-panel {
+  display: flex;
+  width: 50%;
+}
+
+/* .qcss-panel iframe { */
+/*   border: none; */
+/*   width: 100%; */
+/*   height: 100%; */
+/* } */
