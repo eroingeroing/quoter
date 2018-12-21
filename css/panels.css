@@ -19,6 +19,8 @@ body {
 .qcss-panel {
   display: flex;
   width: 50%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 /* .qcss-panel iframe { */
