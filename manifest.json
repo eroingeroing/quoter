@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "version": "0.0.1",
+  "name": "Quoter",
+  "description": "画面を4分割してGoogle検索効率化",
+  "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "Quoter",
+        "default_popup": "popup.html"
+  },
+  "icons" : {
+     "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contents.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+		"tabs",
+		"background",
+                "contextMenus",
+		"http://*/*",
+		"https://*/*"
+  ]
+}
