@@ -29,7 +29,6 @@ $(function() {
   console.log(iconURL)
   $('div[class="voice_search_button"]').before('<div class="qcss-button qjs-button"><img src="' + iconURL + '" title="Search by Quoter"></div>')
   $('div.qjs-button').click(() => {
-    console.log("cliced!")
     var url = location.protocol + '//www.google.co.jp/search?q=' + $('input[name="q"]').val().replace(' ', '+')
     console.log(url)
     $.ajax({
@@ -38,9 +37,9 @@ $(function() {
     })
     .done( (data) => {
       var html = $($.parseHTML(data))
-      console.log(html)
-      var titles = $('div.srg div.rc div.r a h3', $(data))
-      console.log(titles)
+//      console.log(html)
+      var titles = $('div.srg div.rc div.r a h3', $(html))
+      //console.log(titles)
       // var self = this
       titles.each((i, elm) => {
         // console.log(i + ':' + $(e).parent().attr('href'))
@@ -55,18 +54,48 @@ $(function() {
       // 描画
       // TODO 元のhtml全部消していいのか（input残した方がいい？）
       $.get(chrome.runtime.getURL('html/panels.html'), (data) => {
-        console.log(data)
+//        console.log(data)
         $('html').html(data)
         $('head').append('<link rel="stylesheet" href="' + chrome.extension.getURL("css/panels.css") + '" />')
         $('div.qjs-panel').each((i, panel) => {
           //$(panel).html('<iframe src="' + qt.waiting[i].url + '"></iframe>')
+//          $(panel).load(qt.waiting[i].url)
           $.ajax({
             url: qt.waiting[i].url,
             type:'GET'
           })
           .done( (data) => {
+//            console.log(data);
+            // TODO basename関数が必要？
+            var root = qt.waiting[i].url
+            root = new String(root).substring(0, root.lastIndexOf('/') + 1);
+            console.log(root)
+
             console.log(data);
-            $(panel).html(data);
+            var html = $($.parseHTML(data))
+            console.log(html);
+            var imgs = $('img', $(html))
+            console.log(imgs)
+            imgs.each((i, elm) => {
+              var href = $(elm).attr('src')
+              console.log($(elm).attr('src'))
+              if(href.indexOf('http') !== 0){
+                $(elm).attr('src', root + href)
+              }
+              console.log($(elm).attr('src'))
+            })
+            // TODO なぜかhead内は取れない
+            var links = $('link', $(html))
+            console.log(links)
+            links.each((i, elm) => {
+              var href = $(elm).attr('href')
+              console.log($(elm).attr('href'))
+              if(href.indexOf('http') !== 0){
+                $(elm).attr('href', root + href)
+              }
+              console.log($(elm).attr('href'))
+            })
+            $(panel).html(html);
           })
           .fail( (data) => {
             console.log(data);
