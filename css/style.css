@@ -1,0 +1,15 @@
+.qcss-button {
+  flex: 1 0 auto;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  border: none;
+  padding: 0 8px;
+  width: 24px;
+  line-height: 44px;
+}
+
+.qcss-button img {
+  width: 24px;
+  height: 24px;
+}
